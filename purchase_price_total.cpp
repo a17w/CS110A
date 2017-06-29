@@ -1,4 +1,4 @@
-/*
+
 #include <iostream>         // Needed to do C++ I/O
 #include <string>           // Needed by some compilers to use strings
 using namespace std;
@@ -20,13 +20,16 @@ subtotal = item1 + item2 + item3 + item4 + item5;
 salesTax = subtotal * SALESTAXRATE;
 total = subtotal + salesTax;
 
-cout << total << endl;
+cout << "Subtotal: " << subtotal << endl;
+cout << "Sales Tax: " << salesTax << endl;
+cout << "Total Price: " << total << endl;
 
 return 0;
 }
 
-*/
 
+
+/*
 #include <iostream>
 #include <string>
 using namespace std;
@@ -51,7 +54,10 @@ subtotal = item1 + item2 + item3 + item4 + item5;
 salesTax = subtotal * SALESTAXRATE;
 total = subtotal + salesTax;
 
-cout << "The total is " << total << endl;
+cout << "Subtotal: " << subtotal << endl;
+cout << "Sales Tax: " << salesTax << endl;
+cout << "Total Price: " << total << endl;
 
   return 0;
 }
+*/
