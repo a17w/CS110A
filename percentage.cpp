@@ -20,12 +20,14 @@ int main() {
         cout << "Number of answers the student got correct: ";
         cin  >> numCorrect;
 
-        cout << setprecision(1) << fixed; // setting decimal place after number
-        percentage = (static_cast<double>(numCorrect) / (numQuestions)) * 100; //calculating percentage
-
-        cout << name << " has received a score of " << percentage << "% on her test.\n"; // displays name and percentage statement
-
-        cout << name << setw(10) << percentage << "%" << endl; // displays name and percentage
+        if (numCorrect > numQuestions) {
+          cout << "Invalid input. Please try again." << endl;
+        } else if (numCorrect <= numQuestions) {
+          cout << setprecision(1) << fixed; // setting decimal place after number
+          percentage = (static_cast<double>(numCorrect) / (numQuestions)) * 100; //calculating percentage
+          cout << name << " has received a score of " << percentage << "% on her test.\n"; // displays name and percentage statement
+          cout << name << setw(10) << percentage << "%" << endl; // displays name and percentage
+        }
 
         return 0;
 }
