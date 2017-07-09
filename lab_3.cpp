@@ -22,6 +22,6 @@ int main() {
         cout << (abs(y - w) + sqrt(x)) << endl;
         someInt = someChar;
         cout << someChar << "  "
-             << someInt << endl;
+             << someInt << endl; //returns 65 because the ascii number of A is 65, someInt becomes 65
         return 0;
 }
