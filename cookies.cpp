@@ -1,8 +1,7 @@
 // Lab 5 - cookies.cpp
 // This program finds the average number of boxes of cookies
 // sold by the children in a particular scout troop.
-// It illustrates the use of a counter, an accumulator,
-// and an end sentinel.
+// It illustrates the use of a counter, an accumulator, and an end sentinel.
 // Annie Wong
 #include <iostream>
 using namespace std;
@@ -23,6 +22,12 @@ int main()
         cout << "Enter number of boxes of cookies sold by seller " << numSeller << " (or -1 to quit): ";
         cin  >> numBoxes;
 
+        while (numBoxes < -1) // Add while loop to validate that the input for number of boxes sold is -1 or greater.
+        {
+                cout << "Please enter a positive number for boxes or -1 to quit: " << endl;
+                cin >> numBoxes;
+        }
+
 // WRITE CODE TO START A while LOOP THAT LOOPS WHILE numBoxes IS NOT EQUAL TO -1, THE SENTINEL VALUE.
         while (numBoxes != -1)
         {
@@ -31,6 +36,13 @@ int main()
 
                 cout << "Enter number of boxes of cookies sold by the next seller: "; // WRITE CODE TO PROMPT FOR AND INPUT THE NUMBER OF BOXES SOLD BY THE NEXT SELLER.
                 cin >> numBoxes;
+
+                while (numBoxes < -1) // Add while loop to validate that the input for number of boxes sold is -1 or greater.
+                {
+                        cout << "Please enter a positive number for boxes or -1 to quit: " << endl;
+                        cin >> numBoxes;
+                }
+
         }
 
         numSeller = numSeller - 1; // WHEN THE LOOP IS EXITED, THE VALUE STORED IN THE numSeller COUNTER WILL BE ONE MORE THAN THE ACTUAL NUMBER OF SELLERS.SO WRITE CODE TO ADJUST IT TO THE ACTUAL NUMBER OF SELLERS.
