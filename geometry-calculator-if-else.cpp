@@ -16,6 +16,7 @@ cout << "4. Quit" << endl;
 
 cout << "Please enter a number: ";
 cin >> choice;
+
 //for circle
  if (choice == 1) {
    double r;
@@ -31,6 +32,7 @@ cin >> choice;
    } else {
    cout << "The area of the circle is " << area << "." << endl;
  }
+
 //for rectangle
  } else if (choice == 2) {
    int length, width;
@@ -50,6 +52,7 @@ cin >> choice;
    } else {
    cout << "The area of the rectangle is " << area << "." << endl;
  }
+
 //for triangle
  } else if (choice == 3) {
    int base, height;
@@ -69,6 +72,7 @@ cin >> choice;
  } else {
    cout << "The area of the triangle is " << area << "." << endl;
  }
+ 
 //quit program
  } else if (choice == 4) {
    cout << "Quit program" << endl;
