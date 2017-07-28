@@ -9,7 +9,6 @@
 
 #include <iostream>
 #include <iomanip>
-#include <float.h>
 
 using namespace std;
 
@@ -24,6 +23,8 @@ void promptForInteger(string, int &, int, int);
 void createProducts(string [], int []);
 
 void promptForDouble(string, double &, double, double);
+
+//bool isNum(int);
 
 //double calculateCommission(double, double);
 //double sellerEarnings(double, double);
@@ -58,7 +59,7 @@ void displayMainMenu() {
     cout << "." << setw(61) << "." << "\n";
     cout << "." << setw(20) << "1. Mercari" << setw(25) << "3. Tradesy" << setw(16) << "." << "\n";
     cout << "." << setw(61) << "." << "\n";
-    cout << "." << setw(20) << "2. Poshmark" << setw(25) << "4. Quit Program" << setw(16) << "." << "\n";
+    cout << "." << setw(21) << "2. Poshmark" << right << setw(29) << "4. Quit Program" << right << setw(11) << "." << "\n";
     cout << "." << setw(61) << "." << "\n";
     cout << ".............................................................." << "\n";
     cout << endl;
@@ -138,42 +139,66 @@ void createProducts(string productName[], int productPrice[]) {
         cout << "Please enter the number of products: ";
         cin >> productCount;
 
-        // product count input data validation, giving an infinite loop, need to fix
-        while (productCount <= 0) {
-           cout << "Invalid input! Please enter a value greater than 0" << endl;
-       }
+        while (productCount <= 0 && (!(cin >> productCount))) {
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Please enter a numeric value greater than 0" << endl;
+            cout << "Number of products: ";
+        }
 
         productName = new string[productCount]; // building new productName array
         productPrice = new int[productCount]; // building new productPrice array
 
 
         for (int i = 0; i < (productCount); i++) {
-            cout << "Please enter the product name: ";
+            cout << "Enter product name: ";
             cin >> itemName;
+//            getline(cin, itemName);
+//            cin.ignore();
             productName[i] = itemName; // stores new product name element
-            cout << "Please enter the product price: ";
+            cout << "Enter product price: $";
             cin >> itemPrice;
+
+
+            while (itemPrice <= 0) {
+//                cin.clear();
+//                cin.ignore(numeric_limits<streamsize>::max(), '\n');
+                cout << "Please enter a numeric value greater than 0" << endl;
+                cout << "Enter product price: $";
+                cin >> itemPrice;
+            }
+
             productPrice[i] = itemPrice; // stores new product price element
         }
 
         cout << endl;
 
-        cout << "Item Name" << "\t\t" << "Item Price" << endl;
-        cout << "---------" << "\t\t" << "----------" << endl;
+        cout << "Item Name" << "\t\t\t\t\t\t" << "Item Price\n"
+             << "--------------------------------------------------------------\n";
         for (int i = 0; i < (productCount); i++) {
-            cout << productName[i] << right << setw(15) << "$" << productPrice[i]
-                 << endl; // prints out parallel array
+            cout << setw(20) << left << productName[i] << "\t\t\t" << right << setw(3) << "$" << setw(6) << right << productPrice[i] << endl; // prints out parallel array
             totalSalesPrice = totalSalesPrice + productPrice[i];
         }
 
         totalCommissionAmount = totalSalesPrice * commissionRate;
         totalSalesEarnings = totalSalesPrice - totalCommissionAmount;
 
-        cout << endl;
-        cout << "TOTAL SALES:  " << "\t\t" << left << setw(3) << "$" << right << setw(9) << totalSalesPrice << endl;
-        cout << "TOTAL COMMISSION: " << "\t\t" << left << setw(3) << "$" << right << setw(9) << totalCommissionAmount << endl;
-        cout << "TOTAL EARNINGS: " << "\t\t" << left << setw(3) << "$" << right << setw(9) << totalSalesEarnings << endl;
+        cout << endl
+             << endl
+             << endl
+             << endl;
+        cout << "--------------------------------------------------------------" << endl;
+        cout << "TOTAL SALES:  " << "\t\t\t" << left << setw(3) << "$" << right << setw(6) << totalSalesPrice << endl;
+        cout << "--------------------------------------------------------------" << endl;
+        cout << "TOTAL COMMISSION: " << "\t\t" << left << setw(3) << "$" << right << setw(6) << totalCommissionAmount
+             << endl;
+        cout << "--------------------------------------------------------------" << endl;
+        cout << "TOTAL EARNINGS: " << "\t\t" << left << setw(3) << "$" << right << setw(6) << totalSalesEarnings
+             << endl;
+        cout << "--------------------------------------------------------------" << endl;
 
+        cout << endl
+             << endl;
         displayMainMenu();
         commissionRate = askSellerForMarketPlace();
 
@@ -197,6 +222,15 @@ void createProducts(string productName[], int productPrice[]) {
 //}
 
 
+//bool isNum (int str) {
+//    for (int i =0; 1 < str.length(); i++) {
+//        if ((int)str[i] < 10) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+//    }
+//}
 
 /******************************** TO DO LIST ********************************/
 //product name input data validation
@@ -221,129 +255,3 @@ void createProducts(string productName[], int productPrice[]) {
     cout << "Please re-enter the price of your item: $";
     cin >> price;
 }*/
-
-
-
-// Function for seller to select which resale site commission calculator they would like to utilize
-/*
-void sellerChoiceSelection() {
-    int choice;
-    do {
-        cout << setw(30) << "Please enter a number from the menu option to proceed: ";
-        cin >> choice;
-        double price;
-        double commissionRate;
-        promptForDouble("Please enter a price", price, 0.01, DBL_MAX);
-
-        if (choice == 1) {
-            // ebay
-            commissionRate = 0.10;
-        } else if (choice == 2) {
-            // etsy
-            commissionRate = 0.10;
-        } else if (choice == 3) {
-            // mercari
-            commissionRate = 0.10;
-        } else if (choice == 4) {
-            // poshmark
-            commissionRate = 0.20;
-        } else if (choice == 5) {
-            // tradesy
-            commissionRate = 0.149;
-        } else {
-            // seller input data validation
-            cout << (choice == 6 ? "Exiting Program"
-                                 : "ERROR: Invalid input. Please enter a number between 1-6.\n\n");
-        }
-        double commission = calculateCommission(price, commissionRate);
-        double earning = calculateEarnings(price, commission);
-
-        displayResults(price, commission, earning);
-
-    } while (choice < 1 || choice > 6);
-}
- */
-
-
-
-/*
-
-// Function for Etsy Calculator
-double etsyCal(){
-    const double COMMISSION_RATE = 0.10; //constant
-    double price;
-    double earnings;
-    double commission;
-    cout << "Please enter the price of your item: $";
-    cin >> price;
-    while (price < 0) {
-        cout << "Invalid input. The price of your item must be greater than $0.00. \n"; // Price validation
-        cout << "Please re-enter the price of your item: $";
-        cin >> price;
-    }
-    cout << fixed << setprecision(2); // set number of decimal places
-    commission = price * COMMISSION_RATE; //calculating commission
-    earnings = price - commission; // calculating earnings
-    cout << "Your total earnings is $" << earnings << "!";
-}
-
-
-// Function for Mercari Calculator
-double mercariCal() {
-    const double COMMISSION_RATE = 0.10; //constant
-    double price;
-    double earnings;
-    double commission;
-    cout << "Please enter the price of your item: $";
-    cin >> price;
-    while (price < 0) {
-        cout << "Invalid input. The price of your item must be greater than $0.00. \n"; // Price validation
-        cout << "Please re-enter the price of your item: $";
-        cin >> price;
-    }
-    cout << fixed << setprecision(2); // set number of decimal places
-    commission = price * COMMISSION_RATE; //calculating commission
-    earnings = price - commission; // calculating earnings
-    cout << "Your total earnings is $" << earnings << "!";
-}
-
-// Function for Tradesy Calculator
-double tradesyCal() {
-    const double COMMISSION_RATE = 0.149; //constant
-    double price;
-    double earnings;
-    double commission;
-    cout << "Please enter the price of your item: $";
-    cin >> price;
-    while (price < 0) {
-        cout << "Invalid input. The price of your item must be greater than $0.00. \n"; // Price validation
-        cout << "Please re-enter the price of your item: $";
-        cin >> price;
-    }
-    cout << fixed << setprecision(2); // set number of decimal places
-    commission = price * COMMISSION_RATE; //calculating commission
-    earnings = price - commission; // calculating earnings
-    cout << "Your total earnings is $" << earnings << "!";
-}
-
-// Function for Poshmark Calculator
-//
-double poshmarkCal() {
-    const double COMMISSION_RATE = 0.20; //constant
-    double price;
-    double earnings;
-    double commission;
-    cout << "Please enter the price of your item: $";
-    cin >> price;
-    while (price < 0) {
-        cout << "Invalid input. The price of your item must be greater than $0.00. \n"; // Price validation
-        cout << "Please re-enter the price of your item: $";
-        cin >> price;
-    }
-    cout << fixed << setprecision(2); // set number of decimal places
-    commission = price * COMMISSION_RATE; //calculating commission
-    earnings = price - commission; // calculating earnings
-    cout << "Your total earnings is $" << earnings << "!";
-}
-
-*/
